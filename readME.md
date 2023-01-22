@@ -1,0 +1,1 @@
+typeorm migration:create ./src/db/migrations/userTable

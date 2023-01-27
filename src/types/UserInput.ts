@@ -25,4 +25,6 @@ export class AccountInput implements Partial<Account> {
     gitHub?: string
     @Field()
     stackOverFlow?: string
+    @Field()
+    aboutMe?: string;
 }

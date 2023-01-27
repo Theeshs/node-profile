@@ -28,7 +28,7 @@ export class UserResolver {
     @Mutation((_of) => Account)
     async createAccount(@Arg("data") {
         firstName, lastName, userName, email, password, dateOfBirth, image,
-        linkedIn, faceBook, gitHub, stackOverFlow
+        linkedIn, faceBook, gitHub, stackOverFlow, aboutMe
     }: AccountInput): Promise<Account> {
         // hasing the password
         const pasowrdHash = await hashPassword(password)
@@ -47,6 +47,7 @@ export class UserResolver {
         account.faceBook = faceBook
         account.gitHub = gitHub
         account.stackOverFlow = stackOverFlow
+        account.aboutMe = aboutMe
         return accountRepository.save(account)
     }
 
@@ -70,10 +71,10 @@ export class UserResolver {
     }
 
     @Query(() => Account)
-    @UseMiddleware(isAuthorized)
-    async Me(@Ctx() { payload }: MyContext) {
+    // @UseMiddleware(isAuthorized)
+    async Me(@Arg('id') id: number) {
         return await accountRepository.findOneBy({
-            email: payload.email
+            id
         })
     }
 }

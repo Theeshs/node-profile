@@ -4,6 +4,7 @@
 # -----------------------------------------------
 
 type Account {
+  aboutMe: String!
   dateOfBirth: DateTime!
   email: String!
   faceBook: String!
@@ -19,6 +20,7 @@ type Account {
 }
 
 input AccountInput {
+  aboutMe: String!
   dateOfBirth: DateTime!
   email: String!
   faceBook: String!
@@ -52,7 +54,27 @@ type Mutation {
   loginUser(data: LoginInput!): LoginResponse!
 }
 
+type PrimaryLanguage {
+  name: String!
+}
+
 type Query {
-  Me: Account!
+  Me(id: Float!): Account!
+  gitRepositories(limit: Float!, method: String!): RepositoryResponse!
   returnSingleUser(id: Float!): Account!
+}
+
+type Repository {
+  description: String!
+  id: String!
+  name: String!
+  primaryLanguage: PrimaryLanguage!
+  updatedAt: String!
+  url: String!
+}
+
+type RepositoryResponse {
+  login: String!
+  name: String!
+  reposiories: [Repository!]!
 }

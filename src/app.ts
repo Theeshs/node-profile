@@ -9,12 +9,14 @@ import { buildSchema } from "type-graphql";
 import auth from "./handlers/authHandler"
 import DB from "./db/data-source";
 import { UserResolver } from "./resolvers/userResolver";
-
+import { bodyParserGraphQL } from 'body-parser-graphql'
+import cors from 'cors';
+import { GitHubRepositoris } from "./resolvers/repositoryResolver";
 
 // init graphql
 const main = async () => {
     const schema = await buildSchema({
-        resolvers: [UserResolver,],
+        resolvers: [UserResolver, GitHubRepositoris],
         emitSchemaFile: true,
         validate: false
     })
@@ -35,12 +37,13 @@ const main = async () => {
 
     const app = express();
 
-    const port = 3000; // default port to listen
+    const port = 3001; // default port to listen
 
     // Configure Express to use EJS
     app.set("views", path.join(__dirname, "views"));
     app.set("view engine", "ejs");
-
+    app.use(bodyParserGraphQL())
+    app.use(cors<cors.CorsRequest>({ origin: "*" }),)
     await server.start();
     server.applyMiddleware({ app })
 

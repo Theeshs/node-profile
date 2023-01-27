@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: profile-dev-deployment
+spec:
+  selector:
+    matchLabels:
+      app: profile-dev
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: profile-dev
+    spec:
+      containers:
+        - name: profile
+          image: tsandaru/node-cicd-1
+          ports:
+            - containerPort: 3001
+          imagePullPolicy: Always

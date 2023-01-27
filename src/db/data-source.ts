@@ -1,14 +1,16 @@
 import { DataSource } from "typeorm";
+import { Skills } from "./entities/skills";
 import { Account } from "./entities/user";
+import { UserSkills } from "./entities/userSkills";
 
 const DB = new DataSource({
     type: "postgres",
-    host: "127.0.0.1",
+    host: "0.0.0.0",
     port: 5432,
-    username: "thee",
-    password: "1722@sajaniV@n",
+    username: "postgres",
+    password: "mysecretpassword",
     database: "profile",
-    entities: [Account],
+    entities: [UserSkills, Account, Skills],
     migrations: ["src/db/migrations/*js"],
     logging: true,
     synchronize: true

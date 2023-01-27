@@ -1,5 +1,6 @@
 import { Field, ObjectType } from "type-graphql";
-import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, ManyToMany, JoinTable, JoinColumn } from "typeorm";
+import { Skills } from "./skills";
 
 @Entity()
 @ObjectType()
@@ -81,8 +82,19 @@ export class Account {
 
     @Field()
     @Column({
-        nullable: false,
+        nullable: true,
         length: 250
     })
     stackOverFlow: string
+
+    @Field()
+    @Column({
+        nullable: true,
+        length: 1000
+    })
+    aboutMe: string
+
+    @ManyToMany(() => Skills)
+    @JoinTable({ name: "user_skills", })
+    userSkills: Skills[]
 }

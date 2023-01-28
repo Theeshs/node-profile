@@ -9,6 +9,11 @@ pipeline {
     }
     agent any
     stages {
+        stage('Check node version') {
+            steps {
+                bat 'npm --version'
+            }
+        }
         stage('Build') {
             steps {
                 script {

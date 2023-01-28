@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Check node version') {
             steps {
-                bat 'npm --version'
+                sh 'npm --version'
             }
         }
         stage('Build') {

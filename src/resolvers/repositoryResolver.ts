@@ -43,14 +43,14 @@ export class GitHubRepositoris {
                             name
                           }
                         }
-                      }
+                      }s
                     }
                 }
             }`,
     });
 
     headers.append("Content-Type", "application/graphql")
-    headers.append("Authorization", "Bearer")
+    headers.append("Authorization", "Bearer xs")
     // console.log(typeof payload)
     const requestOption = {
       method: "POST",

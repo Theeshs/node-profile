@@ -5,7 +5,7 @@ pipeline {
         dockerImage = ''
     }
     tools {
-        nodejs 'node 19'
+        node 'node 19.5.0'
     }
     agent any
     stages {

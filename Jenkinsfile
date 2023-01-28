@@ -1,4 +1,4 @@
-pipline {
+pipeline {
     environment {
         registry = "tsandaru/nodejs-cicd-1"
         registryCredentials = 'thee_docker'

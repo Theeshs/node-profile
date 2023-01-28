@@ -4,6 +4,9 @@ pipeline {
         registryCredentials = 'thee_docker'
         dockerImage = ''
     }
+    tools {
+        nodejs 'node 19.5.0'
+    }
     agent any
     stages {
         stage('Build') {

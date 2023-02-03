@@ -7,18 +7,18 @@ pipeline {
     agent any
     tools { nodejs "nodejs" }
     stages {
-        stage('Check node version') {
-            steps {
-                sh 'npm --version'
-            }
-        }
-        stage('Build') {
-            steps {
-                script {
-                    sh 'npm install'
-                }
-            }
-        }
+        // stage('Check node version') {
+        //     steps {
+        //         sh 'npm --version'
+        //     }
+        // }
+        // stage('Build') {
+        //     steps {
+        //         script {
+        //             sh 'npm install'
+        //         }
+        //     }
+        // }
 
         stage('Building Image') {
             steps {

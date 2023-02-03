@@ -5,7 +5,7 @@ pipeline {
         dockerImage = ''
     }
     agent any
-    tools { nodejs "nodejs" }
+    // tools { nodejs "nodejs" }
     stages {
         // stage('Check node version') {
         //     steps {

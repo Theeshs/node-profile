@@ -7,23 +7,16 @@ pipeline {
     agent any
     // tools { nodejs "nodejs" }
     stages {
-        // stage('Check node version') {
-        //     steps {
-        //         sh 'npm --version'
-        //     }
-        // }
-        // stage('Build') {
-        //     steps {
-        //         script {
-        //             sh 'npm install'
-        //         }
-        //     }
-        // }
-
         stage('Building Image') {
             steps {
                 script {
-                    dockerImage = docker.build.registry + ":latest"
+                    try {
+                        docker.build registry
+                        dockerImage = "${registry}:latest"
+                    } catch (e) {
+                        currentBuild.result = 'FAILED'
+                        throw e
+                    }
                 }
             }
         }
@@ -31,21 +24,36 @@ pipeline {
         stage("Push Image"){
             steps{
                 script{
-                    docker.withRegistry('', registryCredentials){
-                        dockerImage.push()
+                    try {
+                        docker.withDockerRegistry('', registryCredentials){
+                            dockerImage.push()
+                        }
+                    } catch (e) {
+                        currentBuild.result = 'FAILED'
+                        throw e
                     }
                 }
             }
         }
         stage('Deploying into k8s'){
             steps{
-                sh 'kubectl apply -f deployment.yaml'
+                try {
+                    sh 'kubectl apply -f deployment.yaml'
+                } catch (e) {
+                    currentBuild.result = 'FAILED'
+                    throw e
+                }
             }
         }
 
         stage('Apply service'){
             steps{
-                sh 'kubectl apply -f service.yaml'
+                try {
+                    sh 'kubectl apply -f service.yaml'
+                } catch (e) {
+                    currentBuild.result = 'FAILED'
+                    throw e
+                }
             }
         }
     }
